@@ -18,18 +18,13 @@ import {
 } from "@/components/ui/form"
 import { useState } from "react"
 
+
+
 interface Props {
-  searchParams:any
+defaultData : any
 }
 
-
-export const PaymentMethodForm = ({searchParams}:Props) => {
-
-
-  const {nombre} = searchParams
-
-
-  console.log(nombre)
+export const PaymentMethodForm = ({defaultData}:Props) => {
 
   // Validación para el número de tarjeta de crédito
   const creditCardNumberSchema = z
@@ -91,8 +86,6 @@ export const PaymentMethodForm = ({searchParams}:Props) => {
     console.log("AA")
     console.log(values)
   }
-
-  // FORMAT CARD NUMBER
 
   return (
     <Card className="w-full max-w-[400px]">

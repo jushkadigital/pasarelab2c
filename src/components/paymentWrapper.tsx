@@ -3,8 +3,13 @@ import { PaymentMethodForm } from "./payment-method-form"
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 
-export const PaymentWrapper = ()=> {
+interface Props {
+defaultData: any
+}
 
+export const PaymentWrapper = ({defaultData}:Props)=> {
+
+  
   return (
     <div className="relative w-full flex justify-center ">
             {/* Fondo oscuro con flex para centrar el pop-up */}
@@ -24,7 +29,7 @@ export const PaymentWrapper = ()=> {
               transition={{ duration: 0.3 }}
               className="absolute bg-white rounded-lg shadow-lg z-20 flex items-center justify-center"
             >
-              <PaymentMethodForm/>
+              <PaymentMethodForm defaultData={defaultData}/>
             </motion.div>
     </div>
   
