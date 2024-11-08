@@ -18,8 +18,18 @@ import {
 } from "@/components/ui/form"
 import { useState } from "react"
 
-export const PaymentMethodForm = () => {
+interface Props {
+  searchParams:any
+}
 
+
+export const PaymentMethodForm = ({searchParams}:Props) => {
+
+
+  const {nombre} = searchParams
+
+
+  console.log(nombre)
 
   // Validación para el número de tarjeta de crédito
   const creditCardNumberSchema = z
@@ -49,7 +59,6 @@ export const PaymentMethodForm = () => {
   //Validacion de Terminos y Condicitones
   const termsAndConditionSchema = z.boolean().default(false)
 
-
   // Esquema para métodos de pago específicos
   const creditCardSchema = z.object({
     method: z.literal("credit_card"),
@@ -74,18 +83,14 @@ export const PaymentMethodForm = () => {
       cvv: "",
       termsAndCondition: false,
       email: ""
-
     }
   })
 
 
   function onSubmit(values: z.infer<typeof creditCardSchema>) {
-
     console.log("AA")
     console.log(values)
-
   }
-
 
   // FORMAT CARD NUMBER
 
@@ -106,7 +111,7 @@ export const PaymentMethodForm = () => {
                   <FormItem>
                     <FormLabel>Numero de Tarjeta</FormLabel>
                     <FormControl>
-                      <Input placeholder="Nombre del Propetario"
+                      <Input placeholder="Numero de Tarjeta"
                         maxLength={19}
                         {...field}
                         onChange={(e) => {
@@ -164,7 +169,7 @@ export const PaymentMethodForm = () => {
                   <FormItem>
                     <FormLabel>Caducidad</FormLabel>
                     <FormControl>
-                      <Input placeholder="correo"
+                      <Input placeholder="Correo"
                         {...field}
                       />
                     </FormControl>
@@ -204,10 +209,9 @@ export const PaymentMethodForm = () => {
               </FormControl>
               <div className="space-y-1 leading-none">
                 <FormLabel>
-                  Use different settings for my mobile devices
+                Terminos y condiciones
                 </FormLabel>
                 <FormDescription>
-                  You can manage your mobile notifications in the{" "}
                 </FormDescription>
               </div>
             </FormItem>
