@@ -3,15 +3,16 @@ import { PaymentWrapper } from '@/components/paymentWrapper'
 import Image from 'next/image'
 
 interface Props {
-  searchParams:any
+  searchParams: any
 }
-export default function Home({searchParams}:Props) {
+export default async function Home({ searchParams }: Props) {
 
 
   console.log(searchParams)
-    return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
-    <PaymentWrapper defaultData={searchParams}/>
-    </main>
-  )
+
+  return (
+  <main className="flex min-h-screen flex-col items-center justify-between">
+    <PaymentWrapper defaultData={searchParams} params={searchParams}/>
+  </main>
+)
 }

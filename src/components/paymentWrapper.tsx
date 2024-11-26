@@ -4,10 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 
 interface Props {
-defaultData: any
+defaultData: any,
+params: any
 }
 
-export const PaymentWrapper = ({defaultData}:Props)=> {
+export const PaymentWrapper = ({defaultData,params}:Props)=> {
 
   
   return (
@@ -29,7 +30,7 @@ export const PaymentWrapper = ({defaultData}:Props)=> {
               transition={{ duration: 0.3 }}
               className="absolute bg-white rounded-lg shadow-lg z-20 flex items-center justify-center"
             >
-              <PaymentMethodForm defaultData={defaultData}/>
+              <PaymentMethodForm defaultData={defaultData} params={params}/>
             </motion.div>
     </div>
   
