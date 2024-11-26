@@ -8,19 +8,22 @@ import { PaymentLoadingForm } from "./payment-loading"
 import { PaymentSuccessForm } from "./payment-success"
 import SplashScreen from "./splashScreen"
 
+import { Button } from "@/components/ui/button"
+
 interface Props {
   defaultData: any
   params: any
 }
 
-const fakePaymentProcessing = () =>
-  new Promise((resolve, reject) => {
-    setTimeout(() => {
-      // Cambia esto para simular éxito o error
-      const isSuccess = true
-      isSuccess ? resolve() : reject(new Error('Payment failed'));
-    }, 2000); // Simula 2 segundos de procesamiento
-  });
+const fakePaymentProcessing = () =>{}
+  // new Promise((resolve, reject) => {
+  //   setTimeout(() => {
+  //     // Cambia esto para simular éxito o error
+  //     const isSuccess = true
+  //     // isSuccess ? resolve() : reject(new Error('Payment failed'));
+  //   }, 2000); // Simula 2 segundos de procesamiento
+  // });
+
 export const PaymentMethodForm = ({ defaultData, params }: Props) => {
 
 
@@ -31,7 +34,7 @@ export const PaymentMethodForm = ({ defaultData, params }: Props) => {
 
     try {
       // Simula el procesamiento del pago
-      await fakePaymentProcessing();
+      // await fakePaymentProcessing();
 
       // Si el pago es exitoso
       setStatus('success');
@@ -47,7 +50,7 @@ export const PaymentMethodForm = ({ defaultData, params }: Props) => {
   const cases = {
     idle: () =>
       <motion.div
-      > <PaymentIdleForm params={params} handleStatus={handlePayment} /> </motion.div>,
+      > <PaymentIdleForm params={params}  /> </motion.div>,
     loading: () =>
       <motion.div
         key="loading"
@@ -86,7 +89,7 @@ export const PaymentMethodForm = ({ defaultData, params }: Props) => {
 
   const functionSwitch = executeSwitchCases(cases)
 
-  const [message, setMessage] = useState('')
+  const [link, setLink] = useState('')
 
   console.log(process.env.NEXT_PUBLIC_KEY);
 
@@ -118,6 +121,7 @@ export const PaymentMethodForm = ({ defaultData, params }: Props) => {
       const result = await response.json();
       const urlPayment = JSON.parse(result.message).answer.paymentURL
       console.log(urlPayment)
+      setLink((prev)=>urlPayment)
     }
 
     callFetch()
@@ -132,6 +136,9 @@ export const PaymentMethodForm = ({ defaultData, params }: Props) => {
   //   return () => clearTimeout(timer);
   // }, []);
 
+  const PaymentHandlerCard = ()=>{
+    console.log(link)
+  }
   return (
     <>
       <AnimatePresence>
@@ -147,6 +154,7 @@ export const PaymentMethodForm = ({ defaultData, params }: Props) => {
             {functionSwitch(status)}
           </CardContent>
           <CardFooter>
+          <Button onClick={()=>PaymentHandlerCard()}>Pagar</Button>
           </CardFooter>
         </Card>}
     </>

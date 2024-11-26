@@ -20,11 +20,10 @@ import {
 import { useEffect, useState } from "react"
 
 interface Props {
-link : string,
-handleStatus: ()=>void
+params : any,
 }
 
-export const PaymentIdleForm = ({link,handleStatus}:Props) => {
+export const PaymentIdleForm = ({params}:Props) => {
 
 
   const [dialogOpen, setDialogOpen] = useState(false)
@@ -67,7 +66,6 @@ export const PaymentIdleForm = ({link,handleStatus}:Props) => {
   function onSubmit(values: z.infer<typeof creditCardSchema>) {
     console.log("AA")
     console.log(values)
-    handleStatus()
   }
 
   
@@ -150,7 +148,6 @@ export const PaymentIdleForm = ({link,handleStatus}:Props) => {
               />
             </div>
 
-            <Button type="submit">Pagar</Button>
           </form>
         </Form>
   )
