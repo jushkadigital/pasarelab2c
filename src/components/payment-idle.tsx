@@ -41,12 +41,25 @@ export const PaymentIdleForm = ({params}:Props) => {
   //Validacion de Terminos y Condicitones
   const termsAndConditionSchema = z.boolean().default(false)
 
+  const priceSchema = z
+  .number({
+    required_error: "El precio es obligatorio",
+    invalid_type_error: "El precio debe ser un número",
+  })
+  .positive("El precio debe ser un número positivo")
+  .refine((value) => /^\d+(\.\d{1,2})?$/.test(value.toString()), {
+    message: "El precio debe tener máximo dos cifras decimales",
+  });
+
+const namePaquetSchema = z.string().max(50,{message: "El nombre es muy largo"})
   // Esquema para métodos de pago específicos
   const creditCardSchema = z.object({
     method: z.literal("credit_card"),
+    namePaquete: namePaquetSchema,
     cardHolder: cardHolderSchema,
     termsAndCondition: termsAndConditionSchema,
-    email: emailSchema
+    email: emailSchema,
+    price: priceSchema
   });
 
 
@@ -56,9 +69,11 @@ export const PaymentIdleForm = ({params}:Props) => {
     resolver: zodResolver(creditCardSchema),
     defaultValues: {
       method: "credit_card",
-      cardHolder: "",
+      namePaquete: params.namePaquete || "", 
+      cardHolder: params.namePassenger || "",
       termsAndCondition: false,
-      email: ""
+      email: params.email || "",
+      price: parseFloat(params.finalPrice) || 0
     }
   })
 
@@ -75,12 +90,12 @@ export const PaymentIdleForm = ({params}:Props) => {
             <div className="w-full">
               <FormField
                 control={form.control}
-                name="email"
+                name="namePaquete"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Caducidad</FormLabel>
+                    <FormLabel>Nombre del Paquete</FormLabel>
                     <FormControl>
-                      <Input placeholder="Correo"
+                      <Input placeholder="Nombre del Paquete"
                         {...field}
                       />
                     </FormControl>
@@ -95,9 +110,43 @@ export const PaymentIdleForm = ({params}:Props) => {
                 name="cardHolder"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel> Nombre del Propietario </FormLabel>
+                    <FormLabel> Nombre del Pasajero </FormLabel>
                     <FormControl>
-                      <Input placeholder="Propietario"
+                      <Input placeholder="Nombre del Pasajero"
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+
+            </div>
+                        <div className="w-full">
+                <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel> Email del Pasajero </FormLabel>
+                    <FormControl>
+                      <Input placeholder="Email"
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+
+            </div>
+            <div className="w-full">
+                <FormField
+                control={form.control}
+                name="price"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Precio</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Precio"
                         {...field}
                       />
                     </FormControl>
