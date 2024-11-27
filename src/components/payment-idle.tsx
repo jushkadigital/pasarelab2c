@@ -21,25 +21,38 @@ import { useEffect, useState } from "react"
 
 interface Props {
 params : any,
+setMethod: React.Dispatch<React.SetStateAction<"idle" | "loading" | "success" | "failed">>,
+link:string
 }
 
-export const PaymentIdleForm = ({params}:Props) => {
+const fakePaymentProcessing = () =>
+  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // Cambia esto para simular éxito o error
+      const isSuccess = true
+      isSuccess ? resolve(undefined) : reject(new Error('Payment failed'));
+    }, 2000); // Simula 2 segundos de procesamiento
+  });
+
+export const PaymentIdleForm = ({params,setMethod,link}:Props) => {
 
 
   const [dialogOpen, setDialogOpen] = useState(false)
 
 
   //Validacion para el nombre del CardHolder
-  const cardHolderSchema = z.string().max(40, { message: "El nombre es muy largo" })
+  const cardHolderSchema = z.string().max(40, { message: "El nombre es muy largo" }).min(1,{message: "El campo no debe estar vacio"})
 
 
   // Validación para el correo electrónico 
   const emailSchema = z
     .string()
-    .email("Debe ser un correo electrónico válido");
+    .email("Debe ser un correo electrónico válido").min(1,{message: "El campo no debe estar vacio"})
 
   //Validacion de Terminos y Condicitones
-  const termsAndConditionSchema = z.boolean().default(false)
+  const termsAndConditionSchema = z.boolean().refine((val) => val, {
+    message: "Debes aceptar los términos y condiciones.",
+  })
 
   const priceSchema = z
   .number({
@@ -51,7 +64,7 @@ export const PaymentIdleForm = ({params}:Props) => {
     message: "El precio debe tener máximo dos cifras decimales",
   });
 
-const namePaquetSchema = z.string().max(50,{message: "El nombre es muy largo"})
+const namePaquetSchema = z.string().max(50,{message: "El nombre es muy largo"}).min(1,{message: "El campo no debe estar vacio"})
   // Esquema para métodos de pago específicos
   const creditCardSchema = z.object({
     method: z.literal("credit_card"),
@@ -78,15 +91,32 @@ const namePaquetSchema = z.string().max(50,{message: "El nombre es muy largo"})
   })
 
 
-  function onSubmit(values: z.infer<typeof creditCardSchema>) {
-    console.log("AA")
+  async function onSubmit(values: z.infer<typeof creditCardSchema>) {
     console.log(values)
+    await handlePayment()
   }
 
   
+const handlePayment = async () => {
+    setMethod('loading'); // Muestra el componente de carga
+    try {
+      // Simula el procesamiento del pago
+      
+      await fakePaymentProcessing();
+
+      // Si el pago es exitoso
+    
+    window.location.href = link
+
+    } catch (error) {
+      // Si ocurre un error en el pago
+    }
+  };
+
+  
   return (
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <Form {...form} >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 h-[80vh]">
             <div className="w-full">
               <FormField
                 control={form.control}
@@ -121,7 +151,7 @@ const namePaquetSchema = z.string().max(50,{message: "El nombre es muy largo"})
               />
 
             </div>
-                        <div className="w-full">
+              <div className="w-full">
                 <FormField
                 control={form.control}
                 name="email"
@@ -197,6 +227,9 @@ const namePaquetSchema = z.string().max(50,{message: "El nombre es muy largo"})
               />
             </div>
 
+            <div className="w-full">
+              <Button type="submit" > Pagar</Button>
+            </div>
           </form>
         </Form>
   )

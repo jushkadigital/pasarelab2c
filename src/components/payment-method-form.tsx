@@ -15,42 +15,20 @@ interface Props {
   params: any
 }
 
-const fakePaymentProcessing = () =>{}
-  // new Promise((resolve, reject) => {
-  //   setTimeout(() => {
-  //     // Cambia esto para simular éxito o error
-  //     const isSuccess = true
-  //     // isSuccess ? resolve() : reject(new Error('Payment failed'));
-  //   }, 2000); // Simula 2 segundos de procesamiento
-  // });
+
 
 export const PaymentMethodForm = ({ defaultData, params }: Props) => {
 
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "failed">('idle');
 
-  const handlePayment = async () => {
-    setStatus('loading'); // Muestra el componente de carga
-
-    try {
-      // Simula el procesamiento del pago
-      // await fakePaymentProcessing();
-
-      // Si el pago es exitoso
-      setStatus('success');
-    } catch (error) {
-      // Si ocurre un error en el pago
-      setStatus('failed');
-    }
-  };
-
-
-
+  
+  const [link, setLink] = useState('')
 
   const cases = {
     idle: () =>
       <motion.div
-      > <PaymentIdleForm params={params}  /> </motion.div>,
+      > <PaymentIdleForm params={params} setMethod={setStatus} link={link} /> </motion.div>,
     loading: () =>
       <motion.div
         key="loading"
@@ -89,7 +67,6 @@ export const PaymentMethodForm = ({ defaultData, params }: Props) => {
 
   const functionSwitch = executeSwitchCases(cases)
 
-  const [link, setLink] = useState('')
 
   console.log(process.env.NEXT_PUBLIC_KEY);
 
@@ -97,12 +74,12 @@ export const PaymentMethodForm = ({ defaultData, params }: Props) => {
 
   useEffect(() => {
     const callFetch = async () => {
-      const { amount, reference, email } = params;
+      const { finalPrice, referiCode, email } = params;
       const paymentConf = {
-        amount: Number(amount) * 100,
+        amount: Number(finalPrice) * 100,
         currency: "USD",
         customer: {
-          reference: reference,
+          reference: referiCode,
           email: email,
         },
         orderId: `order-${new Date().getTime()}`
@@ -120,7 +97,6 @@ export const PaymentMethodForm = ({ defaultData, params }: Props) => {
       }
       const result = await response.json();
       const urlPayment = JSON.parse(result.message).answer.paymentURL
-      console.log(urlPayment)
       setLink((prev)=>urlPayment)
     }
 
@@ -136,9 +112,6 @@ export const PaymentMethodForm = ({ defaultData, params }: Props) => {
   //   return () => clearTimeout(timer);
   // }, []);
 
-  const PaymentHandlerCard = ()=>{
-    console.log(link)
-  }
   return (
     <>
       <AnimatePresence>
@@ -151,10 +124,9 @@ export const PaymentMethodForm = ({ defaultData, params }: Props) => {
             <CardDescription></CardDescription>
           </CardHeader>
           <CardContent className="space-y-4  w-[500px]">
-            {functionSwitch(status)}
+            {link!='' && functionSwitch(status)}
           </CardContent>
           <CardFooter>
-          <Button onClick={()=>PaymentHandlerCard()}>Pagar</Button>
           </CardFooter>
         </Card>}
     </>
