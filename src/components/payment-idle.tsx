@@ -23,6 +23,7 @@ interface Props {
 params : any,
 setMethod: React.Dispatch<React.SetStateAction<"idle" | "loading" | "success" | "failed">>,
 link:string
+termsAndCondition:string
 }
 
 const fakePaymentProcessing = () =>
@@ -34,7 +35,7 @@ const fakePaymentProcessing = () =>
     }, 2000); // Simula 2 segundos de procesamiento
   });
 
-export const PaymentIdleForm = ({params,setMethod,link}:Props) => {
+export const PaymentIdleForm = ({params,setMethod,link,termsAndCondition}:Props) => {
 
 
   const [dialogOpen, setDialogOpen] = useState(false)
@@ -210,12 +211,7 @@ const handlePayment = async () => {
                 <DialogContent>
                   <DialogHeader>
                     <DialogTitle>Términos y condiciones</DialogTitle>
-                    <DialogDescription>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, vitae aliquam nisl nunc vitae nisl. Nullam euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, vitae aliquam nisl nunc vitae nisl.
-
-                      Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-                      Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor.
+                    <DialogDescription dangerouslySetInnerHTML={{ __html: termsAndCondition }} className="tourQWERTY">
                     </DialogDescription>
                   </DialogHeader>
                 </DialogContent>

@@ -13,11 +13,11 @@ export async function POST(request: NextRequest) {
 
 
   const createFormToken = async (paymentConf) => {
+
     const createPaymentEndPoint = `https://api.micuentaweb.pe/api-payment/V4/Charge/CreatePaymentOrder`
 
-    const base64Code = Buffer.from(process.env.ID_TIENDA + ":" + process.env.PASSWORD).toString('base64')
+    const base64Code = Buffer.from(document.infoTienda + ":" + document.infoPass).toString('base64')
 
-    console.log(base64Code)
     try {
       const response = await fetch(createPaymentEndPoint, {
         method: 'post',

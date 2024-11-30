@@ -6,9 +6,10 @@ import { useState } from 'react';
 interface Props {
 defaultData: any,
 params: any
+info:any
 }
 
-export const PaymentWrapper = ({defaultData,params}:Props)=> {
+export const PaymentWrapper = ({defaultData,params,info}:Props)=> {
 
   
   return (
@@ -30,7 +31,7 @@ export const PaymentWrapper = ({defaultData,params}:Props)=> {
               transition={{ duration: 0.3 }}
               className="absolute bg-white rounded-lg shadow-lg z-20 flex items-center justify-center"
             >
-              <PaymentMethodForm defaultData={defaultData} params={params}/>
+              <PaymentMethodForm defaultData={defaultData} params={params} info={info}/>
             </motion.div>
     </div>
   

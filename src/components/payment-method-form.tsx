@@ -13,11 +13,12 @@ import { Button } from "@/components/ui/button"
 interface Props {
   defaultData: any
   params: any
+  info:any
 }
 
 
 
-export const PaymentMethodForm = ({ defaultData, params }: Props) => {
+export const PaymentMethodForm = ({ defaultData, params,info }: Props) => {
 
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "failed">('idle');
@@ -28,7 +29,7 @@ export const PaymentMethodForm = ({ defaultData, params }: Props) => {
   const cases = {
     idle: () =>
       <motion.div
-      > <PaymentIdleForm params={params} setMethod={setStatus} link={link} /> </motion.div>,
+      > <PaymentIdleForm params={params} setMethod={setStatus} link={link} termsAndCondition={info.terminosyCondiciones} /> </motion.div>,
     loading: () =>
       <motion.div
         key="loading"
@@ -72,6 +73,7 @@ export const PaymentMethodForm = ({ defaultData, params }: Props) => {
 
   const [isSplashVisible, setIsSplashVisible] = useState(true);
 
+  const credentials = {infoTienda: info.idTienda,infoPass: info.password}
   useEffect(() => {
     const callFetch = async () => {
       const { finalPrice, referiCode, email } = params;
@@ -90,7 +92,7 @@ export const PaymentMethodForm = ({ defaultData, params }: Props) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(paymentConf),
+        body: JSON.stringify({...paymentConf,...credentials}),
       });
       if (!response.ok) {
         throw new Error('Error al enviar el formulario');
