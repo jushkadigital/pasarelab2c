@@ -73,7 +73,6 @@ export const PaymentMethodForm = ({ defaultData, params,info }: Props) => {
 
   const [isSplashVisible, setIsSplashVisible] = useState(true);
 
-  const credentials = {infoTienda: info.idTienda,infoPass: info.password}
   useEffect(() => {
     const callFetch = async () => {
       const { finalPrice, referiCode, email } = params;
@@ -92,7 +91,7 @@ export const PaymentMethodForm = ({ defaultData, params,info }: Props) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({...paymentConf,...credentials}),
+        body: JSON.stringify({...paymentConf}),
       });
       if (!response.ok) {
         throw new Error('Error al enviar el formulario');

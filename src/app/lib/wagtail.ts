@@ -10,7 +10,7 @@ async function fetchAPI(query = '', variable: any = null) {
     try {
       // const res = await axios.get(API_URL + query + '?'+ queryString,{
       const res = await fetch(API_URL + query + '?' + queryString, {
-        // cache: 'no-store'
+        cache: 'no-store'
       })
       const data = await res.json()
       return data
