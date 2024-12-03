@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import fetch from "node-fetch"
-
+import Hex from "crypto-js/enc-hex"
+import hmacSHA256 from "crypto-js/hmac-sha256"
+ 
 
 export async function POST(request: NextRequest) {
   // const secret = request.headers.get("secret");
@@ -11,18 +13,43 @@ export async function POST(request: NextRequest) {
   //   return NextResponse.json({ message: "Invalid secret" }, { status: 401 });
   // }
 
-//   const CLAVE_HMAC_SHA_256 = body.
-//   const checkHash = (answer, hash, hashKey) => {
-//     let key = ''
-//     if (hashKey === "sha256_hmac") {
-//         key = CLAVE_HMAC_SHA_256;
-//     } else if (hashKey === "password") {
-//         key = PASSWORD;
-//     }
-//     const answerHash = Hex.stringify(hmacSHA256(JSON.stringify(answer), key));
-//     return hash === answerHash;
-// };
+  const CLAVE_HMAC_SHA_256 = process.env.HMAC_SHA2
+  const checkHash = (answer, hash, hashKey) => {
+    let key = ''
+    if (hashKey === "sha256_hmac") {
+        key = CLAVE_HMAC_SHA_256;
+    } else if (hashKey === "password") {
+        key = process.env.PASSWORD;
+    }
+    const answerHash = Hex.stringify(hmacSHA256(JSON.stringify(answer), key));
+    return hash === answerHash;
+};
 
+
+const paymentDataIPN = document
+  console.log("IPN:", paymentDataIPN);
+  /* Retrieve the IPN content */
+  const formAnswer = paymentDataIPN["kr-answer"];
+  const hash = paymentDataIPN["kr-hash"];
+  const hashKey = paymentDataIPN["kr-hash-key"];
+
+
+
+if(!checkHash(formAnswer, hash, hashKey) ) {
+    return NextResponse.json({
+      "message": "error"
+    },{status: 400})
+  }
+
+/* Retrieve the transaction id from the IPN data */
+  const transaction = formAnswer.transactions[0];
+
+  /* get some parameters from the answer */
+  const orderStatus = formAnswer.orderStatus;
+  const orderId = formAnswer.orderDetails.orderId;
+  const transactionUUID = transaction.uuid;
+
+  console.log(orderStatus)
   // const data = await createFormToken(document)
 
   // This will revalidate any URL that matches the provided page file on the next page visit.
@@ -42,7 +69,7 @@ export async function POST(request: NextRequest) {
   // revalidatePath("/(main)/post/[slug]", "layout");
 
   return NextResponse.json({
-    "message": "aoe",
+    "message": "final",
     "cache": "update"
   }, { status: 200 })
 }
