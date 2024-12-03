@@ -11,30 +11,19 @@ export async function POST(request: NextRequest) {
   //   return NextResponse.json({ message: "Invalid secret" }, { status: 401 });
   // }
 
+//   const CLAVE_HMAC_SHA_256 = body.
+//   const checkHash = (answer, hash, hashKey) => {
+//     let key = ''
+//     if (hashKey === "sha256_hmac") {
+//         key = CLAVE_HMAC_SHA_256;
+//     } else if (hashKey === "password") {
+//         key = PASSWORD;
+//     }
+//     const answerHash = Hex.stringify(hmacSHA256(JSON.stringify(answer), key));
+//     return hash === answerHash;
+// };
 
-  const createFormToken = async (paymentConf) => {
-
-    const createPaymentEndPoint = `https://api.micuentaweb.pe/api-payment/V4/Charge/CreatePaymentOrder`
-
-    const base64Code = Buffer.from(process.env.ID_TIENDA + ":" + process.env.PASSWORD).toString('base64')
-
-    try {
-      const response = await fetch(createPaymentEndPoint, {
-        method: 'post',
-        body: JSON.stringify(paymentConf),
-        headers: {
-          'Authorization': `Basic ${base64Code}`,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      return response.text();
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  const data = await createFormToken(document)
+  // const data = await createFormToken(document)
 
   // This will revalidate any URL that matches the provided page file on the next page visit.
   // This will not invalidate pages beneath the specific page.
@@ -53,7 +42,7 @@ export async function POST(request: NextRequest) {
   // revalidatePath("/(main)/post/[slug]", "layout");
 
   return NextResponse.json({
-    "message": data,
+    "message": "aoe",
     "cache": "update"
   }, { status: 200 })
 }
