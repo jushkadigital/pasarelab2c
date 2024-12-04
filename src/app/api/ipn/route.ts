@@ -6,7 +6,7 @@ import hmacSHA256 from "crypto-js/hmac-sha256"
 
 export async function POST(request: NextRequest) {
   // const secret = request.headers.get("secret");
-  const document = await request.json();
+  const document = await request.text();
 
   console.log(document)
   // if (secret !== process.env.CONTENTFUL_REVALIDATE_SECRET) {
