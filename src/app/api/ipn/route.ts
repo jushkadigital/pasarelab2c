@@ -8,7 +8,8 @@ export async function POST(request: NextRequest) {
   // const secret = request.headers.get("secret");
   const document = await request.text();
 
-  console.log(document)
+  // console.log(document)
+  console.log(document.split("&"))
   // if (secret !== process.env.CONTENTFUL_REVALIDATE_SECRET) {
   //   return NextResponse.json({ message: "Invalid secret" }, { status: 401 });
   // }
