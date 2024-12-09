@@ -75,9 +75,9 @@ export const PaymentMethodForm = ({ defaultData, params,info }: Props) => {
 
   useEffect(() => {
     const callFetch = async () => {
-      const { finalPrice, referiCode, email } = params;
+      const { unitaryPriceSub1, referiCode, email } = params;
       const paymentConf = {
-        amount: Number(finalPrice) * 100,
+        amount: Number(unitaryPriceSub1) * 100,
         currency: "USD",
         customer: {
           reference: referiCode,
