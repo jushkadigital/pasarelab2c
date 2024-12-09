@@ -18,6 +18,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { useEffect, useState } from "react"
+import { TablaCotizacion } from "./tabla-cotizacion"
 
 interface Props {
 params : any,
@@ -87,7 +88,7 @@ const namePaquetSchema = z.string().max(50,{message: "El nombre es muy largo"}).
       cardHolder: params.namePassenger || "",
       termsAndCondition: false,
       email: params.email || "",
-      price: parseFloat(params.finalPrice) || 0
+      // price: parseFloat(params.finalPrice) || 0
     }
   })
 
@@ -100,6 +101,7 @@ const namePaquetSchema = z.string().max(50,{message: "El nombre es muy largo"}).
   
 const handlePayment = async () => {
     setMethod('loading'); // Muestra el componente de carga
+    
     try {
       // Simula el procesamiento del pago
       
@@ -116,6 +118,8 @@ const handlePayment = async () => {
 
   
   return (
+  <div className="flex flex-row ">
+        <div className="w-1/2">
         <Form {...form} >
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 h-[80vh]">
             <div className="w-full">
@@ -170,23 +174,6 @@ const handlePayment = async () => {
 
             </div>
             <div className="w-full">
-                <FormField
-                control={form.control}
-                name="price"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Precio</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Precio"
-                        {...field}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-
-            </div>
-            <div className="w-full">
               <FormField
                 control={form.control}
                 name="termsAndCondition"
@@ -223,10 +210,14 @@ const handlePayment = async () => {
               />
             </div>
 
+
             <div className="w-full">
               <Button type="submit" > Pagar</Button>
             </div>
           </form>
         </Form>
+        </div>
+        <div className="w-1/2 flex flex-col justify-stretch">  <TablaCotizacion unitaryPrice={params.unitaryPrice} finalPrice={params.finalPrice} passenger={params.numPasajeros} percentage={params.percentage} subPrice1={params.unitaryPriceSub1} /></div>
+        </div>
   )
 }

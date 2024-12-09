@@ -124,7 +124,7 @@ export const PaymentMethodForm = ({ defaultData, params,info }: Props) => {
             <CardTitle></CardTitle>
             <CardDescription></CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4  w-[500px]">
+          <CardContent className="space-y-4 px-24">
             {link!='' && functionSwitch(status)}
           </CardContent>
           <CardFooter>
