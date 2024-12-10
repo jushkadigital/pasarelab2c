@@ -74,7 +74,6 @@ const namePaquetSchema = z.string().max(50,{message: "El nombre es muy largo"}).
     cardHolder: cardHolderSchema,
     termsAndCondition: termsAndConditionSchema,
     email: emailSchema,
-    price: priceSchema
   });
 
 
@@ -132,6 +131,7 @@ const handlePayment = async () => {
                     <FormControl>
                       <Input placeholder="Nombre del Paquete"
                         {...field}
+                        disabled
                       />
                     </FormControl>
                   </FormItem>
@@ -149,6 +149,8 @@ const handlePayment = async () => {
                     <FormControl>
                       <Input placeholder="Nombre del Pasajero"
                         {...field}
+                        
+                        disabled
                       />
                     </FormControl>
                   </FormItem>
@@ -166,6 +168,7 @@ const handlePayment = async () => {
                     <FormControl>
                       <Input placeholder="Email"
                         {...field}
+                        disabled
                       />
                     </FormControl>
                   </FormItem>

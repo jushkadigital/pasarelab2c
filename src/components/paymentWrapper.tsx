@@ -2,6 +2,7 @@
 import { PaymentMethodForm } from "./payment-method-form"
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import Image from "next/image"
 
 interface Props {
 defaultData: any,
