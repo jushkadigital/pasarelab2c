@@ -2,12 +2,12 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { useState, CSSProperties } from "react";
 export const PaymentLoadingForm = () => {
   const override: CSSProperties = {
-  // margin: "0 auto",
+  margin: "0 auto",
   display:"block"
 };
   return (
 
-    <div className="relative h-[70vh] w-full flex items-center flex-col"> 
+    <div className="relative h-[70vh] flex items-center flex-col"> 
 
     <ClipLoader
         color="#D20000"

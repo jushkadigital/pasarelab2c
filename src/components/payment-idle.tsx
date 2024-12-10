@@ -193,7 +193,7 @@ const handlePayment = async () => {
                  Términos y condiciones
                 </FormLabel>
                 <FormDescription>
-                Al hacer click usted esta deacuerdo con nuestros 
+                Al hacer click usted esta deacuerdo con nuestros <br/> 
                 <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogTrigger asChild>
                   <Button variant="link" className="p-0 h-auto text-sm"> términos y condiciones</Button>

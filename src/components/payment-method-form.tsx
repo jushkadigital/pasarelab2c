@@ -29,10 +29,12 @@ export const PaymentMethodForm = ({ defaultData, params,info }: Props) => {
   const cases = {
     idle: () =>
       <motion.div
+        key="idle"
       > <PaymentIdleForm params={params} setMethod={setStatus} link={link} termsAndCondition={info.terminosyCondiciones} /> </motion.div>,
     loading: () =>
       <motion.div
         key="loading"
+        className="w-full"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.8 }}
@@ -67,7 +69,6 @@ export const PaymentMethodForm = ({ defaultData, params,info }: Props) => {
   const executeSwitchCases = (cases: ccases) => (key: "idle" | "loading" | "success" | "failed") => (cases[key] || cases.default)()
 
   const functionSwitch = executeSwitchCases(cases)
-
 
   console.log(process.env.NEXT_PUBLIC_KEY);
 
@@ -119,12 +120,12 @@ export const PaymentMethodForm = ({ defaultData, params,info }: Props) => {
         {isSplashVisible && <SplashScreen onAnimationComplete={() => setIsSplashVisible(false)} />}
       </AnimatePresence>
       {!isSplashVisible &&
-        <Card className="w-full">
+        <Card className="w-[85vw] h-[90vh]">
           <CardHeader>
             <CardTitle></CardTitle>
             <CardDescription></CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4 px-24">
+          <CardContent className="px-24 w-full h-full">
             {link!='' && functionSwitch(status)}
           </CardContent>
           <CardFooter>
