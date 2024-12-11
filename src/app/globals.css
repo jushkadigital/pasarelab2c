@@ -84,3 +84,81 @@
 
 .container {
 display: flex; justify-content: center; }
+
+.tourQWERTY {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  line-height: 1.7;
+  color: #333;
+}
+
+/* Estilos para los párrafos */
+.tourQWERTY p {
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+/* Estilos para enlaces */
+.tourQWERTY a {
+  color: #1a73e8;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+
+.tourQWERTY a:hover {
+  color: #0f56b3;
+  border-bottom: 1px solid #1a73e8;
+}
+
+/* Estilos para los subtítulos (headings) */
+.tourQWERTY h2, .tourQWERTY h3, .tourQWERTY h4, .tourQWERTY h5, .tourQWERTY h6 {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  color: #222;
+  font-weight: 600;
+  border-left: 4px solid #D20000;
+  padding-left: 15px;
+}
+
+/* Tamaños y estilos específicos para cada subtítulo */
+.tourQWERTY h2 {
+  font-size: 2rem;
+}
+
+.tourQWERTY h3 {
+  font-size: 1.75rem;
+}
+
+.tourQWERTY h4 {
+  font-size: 1.5rem;
+}
+
+.tourQWERTY h5 {
+  font-size: 1.25rem;
+}
+
+.tourQWERTY h6 {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Estilo para listas */
+.tourQWERTY ul, .tourQWERTY ol {
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.tourQWERTY li {
+  margin-bottom: 10px;
+}
+
+/* Estilo para imágenes */
+.tourQWERTY img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+

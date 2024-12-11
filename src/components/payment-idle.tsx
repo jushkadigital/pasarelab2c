@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/form"
 import { useEffect, useState } from "react"
 import { TablaCotizacion } from "./tabla-cotizacion"
+import {PayPalScriptProvider ,PayPalButtons} from "@paypal/react-paypal-js"
 
 interface Props {
 params : any,
@@ -201,7 +202,7 @@ const handlePayment = async () => {
                 <DialogContent>
                   <DialogHeader>
                     <DialogTitle>Términos y condiciones</DialogTitle>
-                    <DialogDescription dangerouslySetInnerHTML={{ __html: termsAndCondition }} className="tourQWERTY">
+                    <DialogDescription dangerouslySetInnerHTML={{ __html: termsAndCondition }} className="tourQWERTY  overflow-y-auto  h-[75vh]">
                     </DialogDescription>
                   </DialogHeader>
                 </DialogContent>
@@ -217,6 +218,14 @@ const handlePayment = async () => {
             <div className="w-full">
               <Button type="submit" > Pagar</Button>
             </div>
+            {/*
+            <div>
+              <PayPalScriptProvider options={{clientId: "Afp5sOb5NLMeSceDwKCNqPaSdW_VzFUuioFdOEFU1hz7wE3WsBhMOZdlstyAeP2WSwsmfGuaOARr7hay"}}>
+                <PayPalButtons />
+              </PayPalScriptProvider>
+            </div>
+            */
+            }
           </form>
         </Form>
         </div>

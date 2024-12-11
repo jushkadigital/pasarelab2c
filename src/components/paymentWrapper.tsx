@@ -32,6 +32,7 @@ export const PaymentWrapper = ({defaultData,params,info}:Props)=> {
               transition={{ duration: 0.3 }}
               className="absolute bg-white rounded-lg shadow-lg z-20 flex items-center justify-center"
             >
+            
               <PaymentMethodForm defaultData={defaultData} params={params} info={info}/>
             </motion.div>
     </div>
