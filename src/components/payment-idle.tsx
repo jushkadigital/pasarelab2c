@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/form"
 import { useEffect, useState } from "react"
 import { TablaCotizacion } from "./tabla-cotizacion"
+import {useMobile} from "@/hooks/useMobile"
 import {PayPalScriptProvider ,PayPalButtons} from "@paypal/react-paypal-js"
 
 interface Props {
@@ -39,7 +40,7 @@ const fakePaymentProcessing = () =>
 
 export const PaymentIdleForm = ({params,setMethod,link,termsAndCondition}:Props) => {
 
-
+  const isMobile = useMobile()
   const [dialogOpen, setDialogOpen] = useState(false)
 
 
@@ -117,11 +118,12 @@ const handlePayment = async () => {
   };
 
   
+  
   return (
-  <div className="flex flex-row ">
-        <div className="w-1/2">
+  <div className="flex  flex-col lg:flex-row">
+        <div className="w-full lg:w-1/2 ">
         <Form {...form} >
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 h-[80vh]">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 lg:space-y-8 lg:h-[80vh]">
             <div className="w-full">
               <FormField
                 control={form.control}
@@ -202,7 +204,7 @@ const handlePayment = async () => {
                 <DialogContent>
                   <DialogHeader>
                     <DialogTitle>Términos y condiciones</DialogTitle>
-                    <DialogDescription dangerouslySetInnerHTML={{ __html: termsAndCondition }} className="tourQWERTY  overflow-y-auto  h-[75vh]">
+                    <DialogDescription dangerouslySetInnerHTML={{ __html: termsAndCondition }} className="tourQWERTY  overflow-y-auto  h-[75vh] text-justify">
                     </DialogDescription>
                   </DialogHeader>
                 </DialogContent>
@@ -215,21 +217,37 @@ const handlePayment = async () => {
             </div>
 
 
-            <div className="w-full">
+           { !isMobile && <div className="w-full lg:mt-10" >
               <Button type="submit" > Pagar</Button>
-            </div>
+            </div>}
             {/*
-            <div>
+              <div>
               <PayPalScriptProvider options={{clientId: "Afp5sOb5NLMeSceDwKCNqPaSdW_VzFUuioFdOEFU1hz7wE3WsBhMOZdlstyAeP2WSwsmfGuaOARr7hay"}}>
-                <PayPalButtons />
+                <PayPalButtons 
+                  style={{color:"blue",layout: "horizontal"}}
+                  createOrder={async()=> {
+
+                    const res = await fetch('/api/paypal',{
+                      method: "POST"
+                    })
+                    const order = await res.json()
+                    console.log(order)
+                    return order.id
+                  }}
+                />
               </PayPalScriptProvider>
             </div>
-            */
+              */
             }
-          </form>
+                      </form>
         </Form>
         </div>
-        <div className="w-1/2 flex flex-col justify-stretch">  <TablaCotizacion unitaryPrice={params.unitaryPrice} finalPrice={params.finalPrice} passenger={params.numPasajeros} percentage={params.percentage} subPrice1={params.unitaryPriceSub1} /></div>
+        <div className="w-full lg:w-1/2 flex flex-col justify-stretch">  <TablaCotizacion unitaryPrice={params.unitaryPrice} finalPrice={params.finalPrice} passenger={params.numPasajeros} percentage={params.percentage} subPrice1={params.unitaryPriceSub1} /></div>
+        { isMobile && 
+            <div className="w-full" >
+              <Button type="submit" > Pagar</Button>
+            </div>}
+
         </div>
   )
 }

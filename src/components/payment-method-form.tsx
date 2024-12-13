@@ -120,12 +120,12 @@ export const PaymentMethodForm = ({ defaultData, params,info }: Props) => {
         {isSplashVisible && <SplashScreen onAnimationComplete={() => setIsSplashVisible(false)} />}
       </AnimatePresence>
       {!isSplashVisible &&
-        <Card className="w-[85vw] h-[90vh]">
+        <Card className="w-[95vw] lg:w-[85vw]">
           <CardHeader>
             <CardTitle></CardTitle>
             <CardDescription></CardDescription>
           </CardHeader>
-          <CardContent className="px-24 w-full h-full">
+          <CardContent className=" lg:px-24 w-full h-full">
             {link!='' && functionSwitch(status)}
           </CardContent>
           <CardFooter>

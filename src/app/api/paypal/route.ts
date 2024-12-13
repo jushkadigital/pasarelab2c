@@ -1,5 +1,6 @@
 import paypal from "@paypal/checkout-server-sdk"
 import { NextResponse } from "next/server";
+import fetch from "node-fetch"
 
 const clientId = "<<PAYPAL-CLIENT-ID>>";
 const clientSecret = "<<PAYPAL-CLIENT-SECRET>>";
@@ -12,9 +13,25 @@ const client = new paypal.core.PayPalHttpClient(environment);
 // Here, OrdersCreateRequest() creates a POST request to /v2/checkout/orders
 //
 
+async function getAccessToken(){
+  try{
+    const response = await fetch('',{
+      
+    })
+  } 
+  catch (err){
+    throw new Error(err)
+  }
+}
+
+
 export async function POST() {
 
+
   const request = new paypal.orders.OrdersCreateRequest();
+
+  
+
   request.requestBody({
     intent: "CAPTURE",
     purchase_units: [
@@ -28,7 +45,6 @@ export async function POST() {
               value: "100.00"
             }
           }
-
         },
       }
 
@@ -40,6 +56,5 @@ export async function POST() {
 
   return NextResponse.json({
     id: response.result.id,
-
   })
 }
