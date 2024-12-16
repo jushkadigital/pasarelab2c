@@ -116,9 +116,7 @@ const handlePayment = async () => {
       // Si ocurre un error en el pago
     }
   };
-
-  
-  
+  console.log(process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID)
   return (
   <div className="flex  flex-col lg:flex-row">
         <div className="w-full lg:w-1/2 ">
@@ -139,8 +137,8 @@ const handlePayment = async () => {
                     </FormControl>
                   </FormItem>
                 )}
+                  
               />
-
             </div>
             <div className="w-full">
               <FormField
@@ -217,18 +215,22 @@ const handlePayment = async () => {
             </div>
 
 
-           { !isMobile && <div className="w-full lg:mt-10" >
+           { !isMobile && 
+            <div className="w-full lg:mt-10" >
               <Button type="submit" > Pagar</Button>
-            </div>}
-            {/*
-              <div>
-              <PayPalScriptProvider options={{clientId: "Afp5sOb5NLMeSceDwKCNqPaSdW_VzFUuioFdOEFU1hz7wE3WsBhMOZdlstyAeP2WSwsmfGuaOARr7hay"}}>
+            </div>
+            }
+              <div className="w-full h-36">
+              <PayPalScriptProvider options={{clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}}>
                 <PayPalButtons 
                   style={{color:"blue",layout: "horizontal"}}
                   createOrder={async()=> {
-
                     const res = await fetch('/api/paypal',{
-                      method: "POST"
+                      method: "POST",
+                      body: JSON.stringify({
+                        namePaquete: params.namePaquete,
+                        price: params.unitaryPriceSub1
+                      })
                     })
                     const order = await res.json()
                     console.log(order)
@@ -237,13 +239,11 @@ const handlePayment = async () => {
                 />
               </PayPalScriptProvider>
             </div>
-              */
-            }
-                      </form>
+          </form>
         </Form>
         </div>
         <div className="w-full lg:w-1/2 flex flex-col justify-stretch">  <TablaCotizacion unitaryPrice={params.unitaryPrice} finalPrice={params.finalPrice} passenger={params.numPasajeros} percentage={params.percentage} subPrice1={params.unitaryPriceSub1} /></div>
-        { isMobile && 
+         {isMobile && 
             <div className="w-full" >
               <Button type="submit" > Pagar</Button>
             </div>}
