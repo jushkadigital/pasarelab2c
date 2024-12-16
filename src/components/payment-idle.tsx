@@ -223,7 +223,8 @@ const handlePayment = async () => {
               <div className="w-full h-36">
               <PayPalScriptProvider options={{clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}}>
                 <PayPalButtons 
-                  style={{color:"blue",layout: "horizontal"}}
+                  style={{color:"black",layout: "horizontal"}}
+                  className="w-full"
                   createOrder={async()=> {
                     const res = await fetch('/api/paypal',{
                       method: "POST",
@@ -235,6 +236,10 @@ const handlePayment = async () => {
                     const order = await res.json()
                     console.log(order)
                     return order.id
+                  }}
+                  onApprove={async(data,actions)=>{
+                 const aa = await actions.order.capture()
+                 console.log(aa)
                   }}
                 />
               </PayPalScriptProvider>
