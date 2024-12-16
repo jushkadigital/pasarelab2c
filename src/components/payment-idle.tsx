@@ -90,10 +90,13 @@ const namePaquetSchema = z.string().max(50,{message: "El nombre es muy largo"}).
       termsAndCondition: false,
       email: params.email || "",
       // price: parseFloat(params.finalPrice) || 0
-    }
+    },
+
   })
 
+  // const [paypalState,setPaypalState] = useState(false)
 
+  const termsWatch = form.watch("termsAndCondition")
   async function onSubmit(values: z.infer<typeof creditCardSchema>) {
     console.log(values)
     await handlePayment()
@@ -117,6 +120,7 @@ const handlePayment = async () => {
     }
   };
   console.log(process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID)
+  console.log(termsWatch)
   return (
   <div className="flex  flex-col lg:flex-row">
         <div className="w-full lg:w-1/2 ">
@@ -225,6 +229,7 @@ const handlePayment = async () => {
                 <PayPalButtons 
                   style={{color:"black",layout: "horizontal"}}
                   className="w-full"
+                  disabled={!termsWatch}
                   createOrder={async()=> {
                     const res = await fetch('/api/paypal',{
                       method: "POST",
