@@ -218,12 +218,13 @@ const handlePayment = async () => {
               />
             </div>
 
-
+            <div className="w-full space-y-2 lg:space-y-4">
            { !isMobile && 
             <div className="w-full lg:mt-10" >
-              <Button type="submit" > Pagar</Button>
+              <Button disabled={!termsWatch} type="submit" className="w-full max-w-[750px] py-8 text-lg font-bold bg-[#2C2E2F]" > Pagar con Tarjeta</Button>
             </div>
             }
+            { !isMobile &&
               <div className="w-full h-36">
               <PayPalScriptProvider options={{clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}}>
                 <PayPalButtons 
@@ -249,15 +250,46 @@ const handlePayment = async () => {
                 />
               </PayPalScriptProvider>
             </div>
+            }
+            </div>
           </form>
         </Form>
         </div>
         <div className="w-full lg:w-1/2 flex flex-col justify-stretch">  <TablaCotizacion unitaryPrice={params.unitaryPrice} finalPrice={params.finalPrice} passenger={params.numPasajeros} percentage={params.percentage} subPrice1={params.unitaryPriceSub1} /></div>
-         {isMobile && 
-            <div className="w-full" >
-              <Button type="submit" > Pagar</Button>
-            </div>}
-
+           <div className="w-full space-y-2 lg:space-y-4">
+           { isMobile && 
+            <div className="w-full lg:mt-10" >
+              <Button disabled={!termsWatch} type="submit" className="w-full max-w-[750px] py-8 text-lg font-bold bg-[#2C2E2F]" > Pagar con Tarjeta</Button>
+            </div>
+            }
+            { isMobile &&
+              <div className="w-full h-36 mt-5">
+              <PayPalScriptProvider options={{clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}}>
+                <PayPalButtons 
+                  style={{color:"black",layout: "horizontal"}}
+                  className="w-full"
+                  disabled={!termsWatch}
+                  createOrder={async()=> {
+                    const res = await fetch('/api/paypal',{
+                      method: "POST",
+                      body: JSON.stringify({
+                        namePaquete: params.namePaquete,
+                        price: params.unitaryPriceSub1
+                      })
+                    })
+                    const order = await res.json()
+                    console.log(order)
+                    return order.id
+                  }}
+                  onApprove={async(data,actions)=>{
+                 const aa = await actions.order.capture()
+                 console.log(aa)
+                  }}
+                />
+              </PayPalScriptProvider>
+            </div>
+            }
+            </div>
         </div>
   )
 }
