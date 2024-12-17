@@ -256,13 +256,11 @@ const handlePayment = async () => {
         </Form>
         </div>
         <div className="w-full lg:w-1/2 flex flex-col justify-stretch">  <TablaCotizacion unitaryPrice={params.unitaryPrice} finalPrice={params.finalPrice} passenger={params.numPasajeros} percentage={params.percentage} subPrice1={params.unitaryPriceSub1} /></div>
+            { isMobile &&
            <div className="w-full space-y-2 lg:space-y-4">
-           { isMobile && 
             <div className="w-full lg:mt-10" >
               <Button disabled={!termsWatch} type="submit" className="w-full max-w-[750px] py-8 text-lg font-bold bg-[#2C2E2F]" > Pagar con Tarjeta</Button>
             </div>
-            }
-            { isMobile &&
               <div className="w-full h-36 mt-5">
               <PayPalScriptProvider options={{clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}}>
                 <PayPalButtons 
@@ -288,8 +286,9 @@ const handlePayment = async () => {
                 />
               </PayPalScriptProvider>
             </div>
-            }
             </div>
+            
+            }
         </div>
   )
 }

@@ -70,6 +70,7 @@ export async function POST(request: NextRequest) {
               }
             }
           },
+          custom_id: "AAAAAAA"
         }
       ],
       application_context: {
