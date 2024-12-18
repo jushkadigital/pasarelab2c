@@ -11,26 +11,45 @@ export async function POST(request: NextRequest) {
   // console.log(document)
   const data = document.split("&")
 
-  console.log(data[21])
-  console.log(data[22])
-  console.log(data[23])
+
+  const divideResponse = data[22].split("=")
+
+  const finalDivide = divideResponse[1].split("-")[1]
+
+
+
+
+  try{
+    
+    const response = await fetch(`https://paymentserver.pdsviajes.com/api/my/datapasajero/${finalDivide}`,{
+    body:JSON.stringify({
+      "status": "izipay"
+    }),
+    method: "path"
+  }) 
+
+    console.log(response)
+    return NextResponse.json({
+    "message": "nice",
+    "cache": "update"
+     }, { status: 200 })
+
+  }
+  catch {
+  return NextResponse.json({
+    "message": "error",
+    "cache": "update"
+  }, { status: 400 })
+  }
+
+        
+
 
 
   // if (secret !== process.env.CONTENTFUL_REVALIDATE_SECRET) {
   //   return NextResponse.json({ message: "Invalid secret" }, { status: 401 });
   // }
 
-  const CLAVE_HMAC_SHA_256 = process.env.HMAC_SHA2
-  const checkHash = (answer, hash, hashKey) => {
-    let key = ''
-    if (hashKey === "sha256_hmac") {
-        key = CLAVE_HMAC_SHA_256;
-    } else if (hashKey === "password") {
-        key = process.env.PASSWORD;
-    }
-    const answerHash = Hex.stringify(hmacSHA256(JSON.stringify(answer), key));
-    return hash === answerHash;
-};
 
 
 // const paymentDataIPN = document
@@ -75,10 +94,6 @@ export async function POST(request: NextRequest) {
   // // or with route groups
   // revalidatePath("/(main)/post/[slug]", "layout");
 
-  return NextResponse.json({
-    "message": "final",
-    "cache": "update"
-  }, { status: 200 })
-}
+  }
 
 export const revalidate = 0;
