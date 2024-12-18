@@ -84,7 +84,7 @@ export const PaymentMethodForm = ({ defaultData, params,info }: Props) => {
           reference: referiCode,
           email: email,
         },
-        orderId: `order-${new Date().getTime()}`
+        orderId: `order-${params.id}`
       }
       console.log(paymentConf)
       const response = await fetch(`/api/createpayment`, {
