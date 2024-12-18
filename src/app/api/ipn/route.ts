@@ -33,18 +33,15 @@ export async function POST(request: NextRequest) {
     method: "patch"
   }) 
 
+  console.log(response)
     return NextResponse.json({
     "message": "nice",
     "cache": "update"
      }, { status: 200 })
 
   }
-  catch {
-
-  return NextResponse.json({
-    "message": "error",
-    "cache": "update"
-    }, { status: 400 })
+  catch(err) {
+    throw new Error(err)
   }
 
 
