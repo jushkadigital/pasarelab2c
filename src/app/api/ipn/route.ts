@@ -25,10 +25,12 @@ export async function POST(request: NextRequest) {
     body:JSON.stringify({
       "status": "izipay"
     }),
-    method: "PATCH"
+    headers: {
+          'Content-Type': 'application/json'
+        },
+    method: "patch"
   }) 
 
-    console.log(response)
     return NextResponse.json({
     "message": "nice",
     "cache": "update"
@@ -36,6 +38,7 @@ export async function POST(request: NextRequest) {
 
   }
   catch {
+
   return NextResponse.json({
     "message": "error",
     "cache": "update"
