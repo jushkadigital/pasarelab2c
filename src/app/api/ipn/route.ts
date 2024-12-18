@@ -22,8 +22,10 @@ export async function POST(request: NextRequest) {
   try{
     
     const response = await fetch(`https://paymentserver.pdsviajes.com/api/my/datapasajero/${finalDivide}`,{
+
     body:JSON.stringify({
-      "status": "izipay"
+      "id": finalDivide,
+      "status": "Izipay"
     }),
     headers: {
           'Content-Type': 'application/json'
@@ -42,11 +44,8 @@ export async function POST(request: NextRequest) {
   return NextResponse.json({
     "message": "error",
     "cache": "update"
-  }, { status: 400 })
+    }, { status: 400 })
   }
-
-        
-
 
 
   // if (secret !== process.env.CONTENTFUL_REVALIDATE_SECRET) {
