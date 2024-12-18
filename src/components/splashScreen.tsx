@@ -17,4 +17,5 @@ const SplashScreen = ({onAnimationComplete   }:{onAnimationComplete:()=>void}) =
   );
 };
 
+
 export default SplashScreen;
