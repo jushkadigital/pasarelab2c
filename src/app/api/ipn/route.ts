@@ -9,7 +9,13 @@ export async function POST(request: NextRequest) {
   const document = await request.text();
 
   // console.log(document)
-  console.log(document.split("&"))
+  const data = document.split("&")
+
+  console.log(data[21])
+  console.log(data[22])
+  console.log(data[23])
+
+
   // if (secret !== process.env.CONTENTFUL_REVALIDATE_SECRET) {
   //   return NextResponse.json({ message: "Invalid secret" }, { status: 401 });
   // }
