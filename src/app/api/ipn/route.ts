@@ -21,16 +21,14 @@ export async function POST(request: NextRequest) {
 
   try{
     
-    const response = await fetch(`https://paymentserver.pdsviajes.com/api/my/datapasajero/${finalDivide}`,{
-
-    body:JSON.stringify({
-      "id": finalDivide,
-      "status": "Izipay"
+    const response = await fetch(`https://paymentserver.pdsviajes.com/api/my/datapasajero/${finalDivide}/`,{
+    body: JSON.stringify({
+      status: "izipay"
     }),
     headers: {
           'Content-Type': 'application/json'
         },
-    method: "patch"
+    method: "PATCH"
   }) 
 
   console.log(response)
