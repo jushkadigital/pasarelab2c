@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     body:JSON.stringify({
       "status": "izipay"
     }),
-    method: "path"
+    method: "PATCH"
   }) 
 
     console.log(response)
