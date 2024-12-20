@@ -20,7 +20,9 @@ async function generateAccesToken() {
         password: process.env.PAYPAL_SECRET
       }
     })
+    
     console.log(response.data.access_token)
+    
     return response.data.access_token
   }
   catch (err) {
@@ -70,7 +72,7 @@ export async function POST(request: NextRequest) {
               }
             }
           },
-          custom_id: "AAAAAAA"
+          custom_id: dataBody.id
         }
       ],
       application_context: {

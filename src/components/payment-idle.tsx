@@ -236,7 +236,8 @@ const handlePayment = async () => {
                       method: "POST",
                       body: JSON.stringify({
                         namePaquete: params.namePaquete,
-                        price: params.unitaryPriceSub1
+                        price: params.unitaryPriceSub1,
+                        id: params.id
                       })
                     })
                     const order = await res.json()
@@ -246,6 +247,17 @@ const handlePayment = async () => {
                   onApprove={async(data,actions)=>{
                  const aa = await actions.order.capture()
                  console.log(aa)
+                 if(aa.status == "COMPLETED"){
+                  const response = await fetch("/api/paypalreturn",{
+                  method:"POST",
+                  body:JSON.stringify({
+                    id: aa.purchase_units[0].custom_id 
+                  })
+                  })                
+                  const res = await response.json()
+                  console.log(res)
+                 }
+                  
                   }}
                 />
               </PayPalScriptProvider>
