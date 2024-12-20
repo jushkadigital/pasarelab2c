@@ -78,7 +78,7 @@ export const PaymentMethodForm = ({ defaultData, params,info }: Props) => {
     const callFetch = async () => {
       const { unitaryPriceSub1, referiCode, email } = params;
       const paymentConf = {
-        amount: Number(unitaryPriceSub1) * 100,
+        amount: Math.round(Number(unitaryPriceSub1) * 100),
         currency: "USD",
         customer: {
           reference: referiCode,
