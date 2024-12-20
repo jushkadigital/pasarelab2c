@@ -82,7 +82,7 @@ export const PaymentMethodForm = ({ defaultData, params,info }: Props) => {
         currency: "USD",
         customer: {
           reference: referiCode,
-          email: email,
+          email: email + ".com",
         },
         orderId: `order-${params.id}`
       }

@@ -88,7 +88,7 @@ const namePaquetSchema = z.string().max(50,{message: "El nombre es muy largo"}).
       namePaquete: params.namePaquete || "", 
       cardHolder: params.namePassenger || "",
       termsAndCondition: false,
-      email: params.email || "",
+      email: (params.email + ".com") || "",
       // price: parseFloat(params.finalPrice) || 0
     },
 
