@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import fetch from "node-fetch"
-import Hex from "crypto-js/enc-hex"
-import hmacSHA256 from "crypto-js/hmac-sha256"
  
 
 export async function POST(request: NextRequest) {
@@ -11,6 +9,7 @@ export async function POST(request: NextRequest) {
   // console.log(document)
   const data = document.split("&")
 
+  console.log(data)
 
   const divideResponse = data[22].split("=")
 
