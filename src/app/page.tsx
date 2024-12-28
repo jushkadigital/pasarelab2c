@@ -18,3 +18,7 @@ export default async function Home({ searchParams }: Props) {
   </main>
 )
 }
+export const metadata = {
+  title: "Link de Pago PDS",
+  description: "Pagos creados de la agencia PDS Viajes",
+};
