@@ -226,6 +226,7 @@ const handlePayment = async () => {
             }
             { !isMobile &&
               <div className="w-full h-36">
+              Por este medio de pago se cobra un 3% adicional, por comisiones
               <PayPalScriptProvider options={{clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}}>
                 <PayPalButtons 
                   style={{color:"black",layout: "horizontal"}}
@@ -236,7 +237,7 @@ const handlePayment = async () => {
                       method: "POST",
                       body: JSON.stringify({
                         namePaquete: params.namePaquete,
-                        price: params.unitaryPriceSub1,
+                        price: (Number(params.unitaryPriceSub1)*1.03).toFixed(2),
                         id: params.id
                       })
                     })
