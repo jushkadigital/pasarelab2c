@@ -125,7 +125,7 @@ const handlePayment = async () => {
   <div className="flex  flex-col lg:flex-row">
         <div className="w-full lg:w-1/2 ">
         <Form {...form} >
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 lg:space-y-8 lg:h-[80vh]">
+          <form id="formPDS" onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 lg:space-y-8 lg:h-[80vh]">
             <div className="w-full">
               <FormField
                 control={form.control}
@@ -268,11 +268,12 @@ const handlePayment = async () => {
           </form>
         </Form>
         </div>
-        <div className="w-full lg:w-1/2 flex flex-col justify-stretch">  <TablaCotizacion unitaryPrice={params.unitaryPrice} finalPrice={params.finalPrice} passenger={params.numPasajeros} percentage={params.percentage} subPrice1={params.unitaryPriceSub1} /></div>
+        <div className="w-full lg:w-1/2 flex flex-col justify-stretch"> 
+        <TablaCotizacion unitaryPrice={params.unitaryPrice} finalPrice={params.finalPrice} passenger={params.numPasajeros} percentage={params.percentage} subPrice1={params.unitaryPriceSub1} /></div>
             { isMobile &&
            <div className="w-full space-y-2 lg:space-y-4">
             <div className="w-full lg:mt-10" >
-              <Button disabled={!termsWatch} type="submit" className="w-full max-w-[750px] py-8 text-lg font-bold bg-[#2C2E2F]" > Pagar con Tarjeta</Button>
+              <Button disabled={!termsWatch} type="submit" form="formPDS" className="w-full max-w-[750px] py-8 text-lg font-bold bg-[#2C2E2F]" > Pagar con Tarjeta</Button>
             </div>
               <div className="w-full h-36 mt-5">
               <PayPalScriptProvider options={{clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}}>
