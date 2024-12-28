@@ -7,7 +7,7 @@ export const PaymentLoadingForm = () => {
 };
   return (
 
-    <div className="relative h-[70vh] flex items-center flex-col"> 
+    <div className="relative h-[72vh] flex items-center justify-center flex-col"> 
 
     <ClipLoader
         color="#D20000"
