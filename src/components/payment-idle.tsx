@@ -269,7 +269,7 @@ const handlePayment = async () => {
         </Form>
         </div>
         <div className="w-full lg:w-1/2 flex flex-col justify-stretch"> 
-        <TablaCotizacion unitaryPrice={params.unitaryPrice} finalPrice={params.finalPrice} passenger={params.numPasajeros} percentage={params.percentage} subPrice1={params.unitaryPriceSub1} /></div>
+        <TablaCotizacion unitaryPrice={params.unitaryPrice} unitaryPrice2={params.unitaryPrice2} unitaryPrice3={params.unitaryPrice3} finalPrice={params.finalPrice} passenger={params.numPasajeros} passenger2={params.numPasajeros2} passenger3={params.numPasajeros3} percentage={params.percentage} subPrice1={params.unitaryPriceSub1} /></div>
             { isMobile &&
            <div className="w-full space-y-2 lg:space-y-4">
             <div className="w-full lg:mt-10" >
