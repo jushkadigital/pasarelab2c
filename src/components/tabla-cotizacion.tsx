@@ -79,7 +79,7 @@ export const TablaCotizacion = ({unitaryPrice,unitaryPrice2,unitaryPrice3,finalP
         
         <TableRow>
           <TableCell className="font-medium">Total</TableCell>
-          <TableCell>${unitaryPrice} × {passenger} + ${unitaryPrice2} × ${passenger2} + ${unitaryPrice3} × ${passenger3}}</TableCell>
+          <TableCell>${unitaryPrice} × {passenger} + ${unitaryPrice2} × ${passenger2} + ${unitaryPrice3} × ${passenger3}</TableCell>
           <TableCell className="text-right">${finalPrice}</TableCell>
         </TableRow>
         <TableRow>
