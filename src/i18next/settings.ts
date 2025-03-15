@@ -13,6 +13,7 @@ export function getOptions(lng = defaultLanguage, ns = defaultNS) {
     loadPath: 'https://paymentserver.pdsviajes.com/api/v2/snippets/dataGeneral/?fields=*',
     parse: (data)=>{
         const parseData = JSON.parse(data)
+        console.log(parseData)
         return parseData
       },
     },
