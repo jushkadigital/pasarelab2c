@@ -1,0 +1,16 @@
+{
+    "itemBill":"Concepto",
+    "detail": "Detalle",
+    "price": "Precio",
+    "unitaryPrice": "Precio unitario",
+    "numberPassengers": "Número de Pasajeros",
+    "priceAdultPassenger": "Precio por pasajero Adulto",
+    "numberAdultPassengers": "Numero de pasajeros Adultos",
+    "priceChildPassenger": "Precio por pasajero Menor",
+    "numberChildPassengers": "Numero de pasajeros Menores",
+    "priceInfantPassenger": "Precio por pasajero Infante",
+    "numberInfantPassengers": "Numero de pasajeros Infantes",
+    "totalPrice": "Precio Total",
+    "advancePayment": "Pago adelantado",
+    "quotationTable": "Tabla de Cotización"
+}

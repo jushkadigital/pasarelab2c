@@ -14,11 +14,12 @@ interface Props {
   defaultData: any
   params: any
   info:any
+  lng: string
 }
 
 
 
-export const PaymentMethodForm = ({ defaultData, params,info }: Props) => {
+export const PaymentMethodForm = ({ defaultData, params,info,lng}: Props) => {
 
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "failed">('idle');
@@ -30,7 +31,7 @@ export const PaymentMethodForm = ({ defaultData, params,info }: Props) => {
     idle: () =>
       <motion.div
         key="idle"
-      > <PaymentIdleForm params={params} setMethod={setStatus} link={link} termsAndCondition={info.terminosyCondiciones} /> </motion.div>,
+      > <PaymentIdleForm lng={lng} params={params} setMethod={setStatus} link={link} termsAndCondition={info.terminosyCondiciones} /> </motion.div>,
     loading: () =>
       <motion.div
         key="loading"
@@ -125,7 +126,7 @@ export const PaymentMethodForm = ({ defaultData, params,info }: Props) => {
             <CardTitle></CardTitle>
             <CardDescription></CardDescription>
           </CardHeader>
-          <CardContent className=" lg:px-24 w-full h-full">
+          <CardContent className="lg:px-24 w-full h-full">
             {link!='' && functionSwitch(status)}
           </CardContent>
           <CardFooter>

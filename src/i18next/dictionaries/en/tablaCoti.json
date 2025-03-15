@@ -1,0 +1,16 @@
+{
+    "itemBill":"Item",
+    "detail": "Details",
+    "price": "Amount",
+    "unitaryPrice": "Unitary Price",
+    "numberPassengers": "Number of Passengers",
+    "priceAdultPassenger": "Price per Adult Passenger",
+    "numberAdultPassengers": "Number of Adult Passengers",
+    "priceChildPassenger": "Price per Child Passenger",
+    "numberChildPassengers": "Number of Child Passengers",
+    "priceInfantPassenger": "Price per Infant Passenger",
+    "numberInfantPassengers": "Number of Infant Passengers",
+    "totalPrice": "Total Price",
+    "advancePayment": "Advance Payment",
+    "quotationTable": "Quotation Table"
+}

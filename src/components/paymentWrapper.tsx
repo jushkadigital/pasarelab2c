@@ -8,9 +8,10 @@ interface Props {
 defaultData: any,
 params: any
 info:any
+lng:string
 }
 
-export const PaymentWrapper = ({defaultData,params,info}:Props)=> {
+export const PaymentWrapper = ({defaultData,params,info,lng}:Props)=> {
 
   
   return (
@@ -33,7 +34,7 @@ export const PaymentWrapper = ({defaultData,params,info}:Props)=> {
               className="absolute bg-white rounded-lg shadow-lg z-20 flex items-center justify-center"
             >
             
-              <PaymentMethodForm defaultData={defaultData} params={params} info={info}/>
+              <PaymentMethodForm defaultData={defaultData} params={params} info={info} lng={lng}/>
             </motion.div>
     </div>
   

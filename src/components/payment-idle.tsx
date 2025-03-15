@@ -21,12 +21,14 @@ import { useEffect, useState } from "react"
 import { TablaCotizacion } from "./tabla-cotizacion"
 import {useMobile} from "@/hooks/useMobile"
 import {PayPalScriptProvider ,PayPalButtons} from "@paypal/react-paypal-js"
+import { useTranslation } from "@/i18next/client"
 
 interface Props {
 params : any,
 setMethod: React.Dispatch<React.SetStateAction<"idle" | "loading" | "success" | "failed">>,
 link:string
 termsAndCondition:string
+lng:string
 }
 
 const fakePaymentProcessing = () =>
@@ -38,7 +40,7 @@ const fakePaymentProcessing = () =>
     }, 2000); // Simula 2 segundos de procesamiento
   });
 
-export const PaymentIdleForm = ({params,setMethod,link,termsAndCondition}:Props) => {
+export const PaymentIdleForm = ({params,setMethod,link,termsAndCondition,lng}:Props) => {
 
   const isMobile = useMobile()
   const [dialogOpen, setDialogOpen] = useState(false)
@@ -102,7 +104,6 @@ const namePaquetSchema = z.string().max(50,{message: "El nombre es muy largo"}).
     await handlePayment()
   }
 
-  
 const handlePayment = async () => {
     setMethod('loading'); // Muestra el componente de carga
     
@@ -121,6 +122,9 @@ const handlePayment = async () => {
   };
   console.log(process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID)
   console.log(termsWatch)
+
+
+  const {t} = useTranslation(lng,'translation')
   return (
   <div className="flex  flex-col lg:flex-row">
         <div className="w-full lg:w-1/2 ">
@@ -132,9 +136,9 @@ const handlePayment = async () => {
                 name="namePaquete"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Nombre del Paquete</FormLabel>
+                    <FormLabel>{t('packageName')}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Nombre del Paquete"
+                      <Input placeholder={t('packageNamePlace')}
                         {...field}
                         disabled
                       />
@@ -150,9 +154,9 @@ const handlePayment = async () => {
                 name="cardHolder"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel> Nombre del Pasajero </FormLabel>
+                    <FormLabel>{t('passengerName')}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Nombre del Pasajero"
+                      <Input placeholder={t('passengerNamePlace')}
                         {...field}
                         
                         disabled
@@ -169,9 +173,9 @@ const handlePayment = async () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel> Email del Pasajero </FormLabel>
+                    <FormLabel>{t('passengerEmail')}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Email"
+                      <Input placeholder={t('passengerEmailPlace')}
                         {...field}
                         disabled
                       />
@@ -195,17 +199,17 @@ const handlePayment = async () => {
               </FormControl>
               <div className="space-y-1 leading-none">
                 <FormLabel>
-                 Términos y condiciones
+                  {t('termsCond')}
                 </FormLabel>
                 <FormDescription>
-                Al hacer click usted esta deacuerdo con nuestros <br/> 
+                  {t('termsCondParagraph')}<br/>
                 <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogTrigger asChild>
-                  <Button variant="link" className="p-0 h-auto text-sm"> términos y condiciones</Button>
+                  <Button variant="link" className="p-0 h-auto text-sm"> {t('termsCondButton')}</Button>
                 </DialogTrigger>
                 <DialogContent>
                   <DialogHeader>
-                    <DialogTitle>Términos y condiciones</DialogTitle>
+                    <DialogTitle>{t('termsCond')}</DialogTitle>
                     <DialogDescription dangerouslySetInnerHTML={{ __html: termsAndCondition }} className="tourQWERTY  overflow-y-auto  h-[75vh] text-justify">
                     </DialogDescription>
                   </DialogHeader>
@@ -221,12 +225,12 @@ const handlePayment = async () => {
             <div className="w-full space-y-2 lg:space-y-4">
            { !isMobile && 
             <div className="w-full lg:mt-10" >
-              <Button disabled={!termsWatch} type="submit" className="w-full max-w-[750px] py-8 text-lg font-bold bg-[#2C2E2F]" > Pagar con Tarjeta</Button>
+              <Button disabled={!termsWatch} type="submit" className="w-full max-w-[750px] py-8 text-lg font-bold bg-[#2C2E2F]" >{t('cardButton')}</Button>
             </div>
             }
             { !isMobile &&
               <div className="w-full h-36">
-              Por este medio de pago se cobra un 3% adicional, por comisiones
+                {t('advisePaypal')}
               <PayPalScriptProvider options={{clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}}>
                 <PayPalButtons 
                   style={{color:"black",layout: "horizontal"}}
@@ -269,13 +273,14 @@ const handlePayment = async () => {
         </Form>
         </div>
         <div className="w-full lg:w-1/2 flex flex-col justify-stretch"> 
-        <TablaCotizacion unitaryPrice={params.unitaryPrice} unitaryPrice2={params.unitaryPrice2} unitaryPrice3={params.unitaryPrice3} finalPrice={params.finalPrice} passenger={params.numPasajeros} passenger2={params.numPasajeros2} passenger3={params.numPasajeros3} percentage={params.percentage} subPrice1={params.unitaryPriceSub1} /></div>
+        <TablaCotizacion  lng={lng} unitaryPrice={params.unitaryPrice} unitaryPrice2={params.unitaryPrice2} unitaryPrice3={params.unitaryPrice3} finalPrice={params.finalPrice} passenger={params.numPasajeros} passenger2={params.numPasajeros2} passenger3={params.numPasajeros3} percentage={params.percentage} subPrice1={params.unitaryPriceSub1} /></div>
             { isMobile &&
            <div className="w-full space-y-2 lg:space-y-4">
             <div className="w-full lg:mt-10" >
-              <Button disabled={!termsWatch} type="submit" form="formPDS" className="w-full max-w-[750px] py-8 text-lg font-bold bg-[#2C2E2F]" > Pagar con Tarjeta</Button>
+              <Button disabled={!termsWatch} type="submit" form="formPDS" className="w-full max-w-[750px] py-8 text-lg font-bold bg-[#2C2E2F]" >{t('cardButton')}</Button>
             </div>
               <div className="w-full h-36 mt-5">
+                {t('advisePaypal')}
               <PayPalScriptProvider options={{clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}}>
                 <PayPalButtons 
                   style={{color:"black",layout: "horizontal"}}
