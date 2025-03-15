@@ -31,7 +31,7 @@ export const PaymentMethodForm = ({ defaultData, params,info,lng}: Props) => {
     idle: () =>
       <motion.div
         key="idle"
-      > <PaymentIdleForm lng={lng} params={params} setMethod={setStatus} link={link} termsAndCondition={info.terminosyCondiciones} /> </motion.div>,
+      > <PaymentIdleForm lng={lng} params={params} setMethod={setStatus} link={link} termsAndCondition={info} /> </motion.div>,
     loading: () =>
       <motion.div
         key="loading"
