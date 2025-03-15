@@ -29,7 +29,7 @@ export default async function Home({ searchParams,params }: Props) {
   console.log(info[objOps[pars.lng]])
   return (
   <main className="flex min-h-screen flex-col items-center justify-between">
-    <PaymentWrapper defaultData={searchParams} params={searchParams} info={info[objOps[pars.lng]]}/>
+    <PaymentWrapper lng={pars.lng}  defaultData={searchParams} params={searchParams} info={info[objOps[pars.lng]]}/>
     
   </main>
 )
