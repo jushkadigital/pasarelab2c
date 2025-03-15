@@ -16,6 +16,9 @@ export function getOptions(lng = defaultLanguage, ns = defaultNS) {
         console.log(parseData)
         return parseData
       },
+      requestOptions: {
+        cache: 'no-store', // Desactiva la caché del fetch
+      }
     },
          defaultLanguage,
     react: {
