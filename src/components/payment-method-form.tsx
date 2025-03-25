@@ -65,6 +65,20 @@ export const PaymentMethodForm = ({ defaultData, params,info,lng}: Props) => {
 
   }
 
+function decodeBase64UrlSafe(encoded:string) {
+    // Restaurar padding si falta
+    const paddingNeeded = encoded.length % 4;
+    if (paddingNeeded) {
+        encoded += "=".repeat(4 - paddingNeeded);
+    }
+
+    // Reemplazar caracteres URL-safe con los de Base64 estándar
+    encoded = encoded.replace(/-/g, "+").replace(/_/g, "/");
+
+    // Decodificar usando atob()
+    return atob(encoded);
+}
+
   type ccases = typeof cases
 
   const executeSwitchCases = (cases: ccases) => (key: "idle" | "loading" | "success" | "failed") => (cases[key] || cases.default)()
@@ -83,7 +97,7 @@ export const PaymentMethodForm = ({ defaultData, params,info,lng}: Props) => {
         currency: "USD",
         customer: {
           reference: referiCode,
-          email: email,
+          email: decodeBase64UrlSafe(email),
         },
         orderId: `order-${params.id}`
       }
