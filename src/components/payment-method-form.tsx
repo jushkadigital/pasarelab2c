@@ -7,8 +7,10 @@ import { PaymentIdleForm } from "./payment-idle"
 import { PaymentLoadingForm } from "./payment-loading"
 import { PaymentSuccessForm } from "./payment-success"
 import SplashScreen from "./splashScreen"
-
 import { Button } from "@/components/ui/button"
+import Image from "next/image"
+import logo from "/public/pdsViajesLogo.png"
+
 
 interface Props {
   defaultData: any
@@ -136,10 +138,9 @@ function decodeBase64UrlSafe(encoded:string) {
       </AnimatePresence>
       {!isSplashVisible &&
         <Card className="w-[95vw] lg:w-[85vw]">
-          <CardHeader>
-            <CardTitle></CardTitle>
-            <CardDescription></CardDescription>
-          </CardHeader>
+          <CardHeader className="my-0 py-0 flex justify-center flex-row">
+            <Image src={logo} alt="a" height={100} width={100}/>
+                </CardHeader>
           <CardContent className="lg:px-24 w-full h-full">
             {link!='' && functionSwitch(status)}
           </CardContent>
