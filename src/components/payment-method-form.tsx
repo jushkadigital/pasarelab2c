@@ -15,18 +15,18 @@ import logo from "/public/pdsViajesLogo.png"
 interface Props {
   defaultData: any
   params: any
-  info:any
+  info: any
   lng: string
 }
 
 
 
-export const PaymentMethodForm = ({ defaultData, params,info,lng}: Props) => {
+export const PaymentMethodForm = ({ defaultData, params, info, lng }: Props) => {
 
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "failed">('idle');
 
-  
+
   const [link, setLink] = useState('')
 
   const cases = {
@@ -67,11 +67,11 @@ export const PaymentMethodForm = ({ defaultData, params,info,lng}: Props) => {
 
   }
 
-function decodeBase64UrlSafe(encoded:string) {
+  function decodeBase64UrlSafe(encoded: string) {
     // Restaurar padding si falta
     const paddingNeeded = encoded.length % 4;
     if (paddingNeeded) {
-        encoded += "=".repeat(4 - paddingNeeded);
+      encoded += "=".repeat(4 - paddingNeeded);
     }
 
     // Reemplazar caracteres URL-safe con los de Base64 estándar
@@ -79,7 +79,7 @@ function decodeBase64UrlSafe(encoded:string) {
 
     // Decodificar usando atob()
     return atob(encoded);
-}
+  }
 
   type ccases = typeof cases
 
@@ -109,14 +109,15 @@ function decodeBase64UrlSafe(encoded:string) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({...paymentConf}),
+        body: JSON.stringify({ ...paymentConf }),
       });
       if (!response.ok) {
         throw new Error('Error al enviar el formulario');
       }
       const result = await response.json();
+      console.log((result))
       const urlPayment = JSON.parse(result.message).answer.paymentURL
-      setLink((prev)=>urlPayment)
+      setLink((prev) => urlPayment)
     }
 
     callFetch()
@@ -139,10 +140,10 @@ function decodeBase64UrlSafe(encoded:string) {
       {!isSplashVisible &&
         <Card className="w-[95vw] lg:w-[85vw]">
           <CardHeader className="my-0 py-0 flex justify-center flex-row">
-            <Image src={logo} alt="a" height={100} width={100}/>
-                </CardHeader>
+            <Image src={logo} alt="a" height={100} width={100} />
+          </CardHeader>
           <CardContent className="lg:px-24 w-full h-full">
-            {link!='' && functionSwitch(status)}
+            {link != '' && functionSwitch(status)}
           </CardContent>
           <CardFooter>
           </CardFooter>
